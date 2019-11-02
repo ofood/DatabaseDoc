@@ -11,7 +11,7 @@
   {
 <tr>
     <td style="width:200px;">
-        @if (item.FieldName == ViewBag.keywords)
+        @if (item.FieldName?.ToLower() == ViewBag.keywords?.ToLower())
         {
             <span style="font-weight:bold;color:#f00;">
                 @item.FieldName

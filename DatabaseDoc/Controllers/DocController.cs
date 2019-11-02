@@ -24,9 +24,10 @@ namespace DatabaseDoc.Controllers
             };
             _sugarClient = new SqlSugarClient(config);
         }
-        public IActionResult Index(int pageindex = 1, int pagesize = 10, string keywords = null)
+        public IActionResult Index(int pageindex = 1, int pagesize = 10, string keywords = null,int existnull=0)
         {
             ViewBag.keywords = keywords?.Trim();
+            ViewBag.IsNull = existnull;
             int counts = 0;
             var tables = GetTables(out counts, pageindex, pagesize, keywords);
             PagerOption pageOptions = new PagerOption()
@@ -41,7 +42,7 @@ namespace DatabaseDoc.Controllers
             ViewBag.Option = pageOptions;
             return View(tables);
         }
-        private List<TableInfo> GetTables(out int totals, int pageindex, int pagesize, string keywords = null)
+        private List<TableInfo> GetTables(out int totals, int pageindex, int pagesize, string keywords = null, int existnull=0)
         {
             try
             {
@@ -56,13 +57,24 @@ namespace DatabaseDoc.Controllers
                 {
           new SugarParameter("@keywords",keywords)
                 };
-                var tables = _sugarClient.Ado.SqlQuery<TableInfo>(@"select tab.* from (
+                string sql = string.Format(@";with FieldDescNullObj as 
+(
+select distinct e.id
+from sysobjects e inner join syscolumns c on e.id=c.id and e.xtype='U'
+left join sys.extended_properties d on c.id=d.major_id and c.colid=d.minor_id
+left join sys.extended_properties f on f.minor_id=0 and f.major_id=c.id
+where d.value is  null or f.value is  null
+)
+
+select tab.* from (
 select ROW_NUMBER() over(order by a.crdate desc) as num, a.name as TableName, 
 a.id, a.crdate as CreateTime,b.value as TableDescritpion from
-  sysobjects a left join sys.extended_properties b on a.id=b.major_id and b.minor_id=0
+  sysobjects a {0}
+  left join sys.extended_properties b on a.id=b.major_id and b.minor_id=0
 where a.xtype = 'U' and (@keywords is null or a.name like ''+@keywords+'%' or a.id in(select id from syscolumns where name like ''+@keywords+'%'))
-) tab where tab.num between @startNum and @endNum", prams);
-                totals = (int)_sugarClient.Ado.GetScalar(@"select count(1) from  sysobjects where xtype = 'U' and(@keywords is null or name like '' + @keywords + '%')", prams1);
+) tab where tab.num between @startNum and @endNum",existnull==1? "inner join FieldDescNullObj c on c.id=a.id" : "");
+                var tables = _sugarClient.Ado.SqlQuery<TableInfo>(sql, prams);
+                totals = (int)_sugarClient.Ado.GetScalar(string.Format(@"select count(1) from  sysobjects a {0} where xtype = 'U' and(@keywords is null or name like '' + @keywords + '%')",existnull==1? "inner join FieldDescNullObj c on c.id=a.id":""), prams1);
                 foreach (var tb in tables)
                 {
                     tb.Columns = GetColums(tb.Id);
