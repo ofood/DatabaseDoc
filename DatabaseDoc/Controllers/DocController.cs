@@ -24,22 +24,23 @@ namespace DatabaseDoc.Controllers
             };
             _sugarClient = new SqlSugarClient(config);
         }
-        public IActionResult Index(int pageindex = 1, int pagesize = 10, string keywords = null,int existnull=0)
+        public IActionResult Index(SearchConditionParams query)
         {
-            ViewBag.keywords = keywords?.Trim();
-            ViewBag.IsNull = existnull;
+            ViewBag.keywords = query.KeyWords?.Trim();
+            ViewBag.IsNull = query.ExistNull;
             int counts = 0;
-            var tables = GetTables(out counts, pageindex, pagesize, keywords);
+            var tables = GetTables(out counts, query.PageIndex, query.PageSize, query.KeyWords,query.ExistNull);
             PagerOption pageOptions = new PagerOption()
             {
                 ItemCount = counts,
-                PageSize = pagesize, //5
-                PageIndex = pageindex,
+                PageSize = query.PageSize, //5
+                PageIndex = query.PageIndex,
                 CountNum = 5,
                 Url = Request.Path.Value,
-                Query = Request.Query
+                Query = Request.Query,
             };
             ViewBag.Option = pageOptions;
+            ViewBag.TotalCount = counts;
             return View(tables);
         }
         private List<TableInfo> GetTables(out int totals, int pageindex, int pagesize, string keywords = null, int existnull=0)
@@ -57,24 +58,27 @@ namespace DatabaseDoc.Controllers
                 {
           new SugarParameter("@keywords",keywords)
                 };
-                string sql = string.Format(@";with FieldDescNullObj as 
+                string commonSql = @";with FieldDescNullObj as 
 (
 select distinct e.id
 from sysobjects e inner join syscolumns c on e.id=c.id and e.xtype='U'
 left join sys.extended_properties d on c.id=d.major_id and c.colid=d.minor_id
 left join sys.extended_properties f on f.minor_id=0 and f.major_id=c.id
 where d.value is  null or f.value is  null
-)
+)";
+                string sql = string.Format(@"{0}
 
 select tab.* from (
 select ROW_NUMBER() over(order by a.crdate desc) as num, a.name as TableName, 
 a.id, a.crdate as CreateTime,b.value as TableDescritpion from
-  sysobjects a {0}
+  sysobjects a {1}
   left join sys.extended_properties b on a.id=b.major_id and b.minor_id=0
 where a.xtype = 'U' and (@keywords is null or a.name like ''+@keywords+'%' or a.id in(select id from syscolumns where name like ''+@keywords+'%'))
-) tab where tab.num between @startNum and @endNum",existnull==1? "inner join FieldDescNullObj c on c.id=a.id" : "");
+) tab where tab.num between @startNum and @endNum", commonSql,existnull == 1? "inner join FieldDescNullObj c on c.id=a.id" : "");
                 var tables = _sugarClient.Ado.SqlQuery<TableInfo>(sql, prams);
-                totals = (int)_sugarClient.Ado.GetScalar(string.Format(@"select count(1) from  sysobjects a {0} where xtype = 'U' and(@keywords is null or name like '' + @keywords + '%')",existnull==1? "inner join FieldDescNullObj c on c.id=a.id":""), prams1);
+                totals = (int)_sugarClient.Ado.GetScalar(string.Format(@"{0} 
+select count(1) from  sysobjects a {1} 
+where a.xtype = 'U' and(@keywords is null or a.name like '' + @keywords + '%')", commonSql,existnull == 1? "inner join FieldDescNullObj c on c.id=a.id":""), prams1);
                 foreach (var tb in tables)
                 {
                     tb.Columns = GetColums(tb.Id);

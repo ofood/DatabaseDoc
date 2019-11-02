@@ -14,14 +14,17 @@
 </head>
 <body>
     <div class="box">
-        <form action="/doc" method="post">
+        <form action="/doc" method="get">
 
             <div class="searchBox">
                 <span>
                     <input class="searchInput" placeholder="请输入你要查询的表名" value="@ViewBag.keywords" id="txtSer" name="keywords" />
                 </span><span><input type="submit" value="查询" id="searchBtn" class="searchBtn"></span>
             </div>
-            <div><input class="nullclass" type="checkbox" onchange="checkboxChange(this)" name="existnull" value="@ViewBag.IsNull" />描述为空</div>
+            <div>
+            <input class="nullclass" type="checkbox" onchange="checkboxChange(this)" name="existnull" value="@ViewBag.IsNull" />描述为空
+            <span style="color:#f00;">表个数：@ViewBag.TotalCount</span>
+            </div>
         </form>
 
         @foreach (var item in Model as List<TableInfo>)

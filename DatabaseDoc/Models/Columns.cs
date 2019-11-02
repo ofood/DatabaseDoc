@@ -30,7 +30,7 @@ namespace DatabaseDoc.Models
         /// <summary>
         /// 字段描述
         /// </summary>
-        public string Description { get; set; }
+        public string ColumnDescription { get; set; }
         /// <summary>
         /// 默认值
         /// </summary>
