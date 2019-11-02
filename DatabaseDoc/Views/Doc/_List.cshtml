@@ -1,0 +1,43 @@
+﻿<table class="tablecss">
+    <tr>
+        <th>字段</th>
+        <th>类型</th>
+        <th>长度</th>
+        <th>可空</th>
+        <th>默认值</th>
+        <th>注释</th>
+    </tr>
+  @foreach (var item in Model as List<Columns>)
+  {
+<tr>
+    <td style="width:200px;">
+        @if (item.FieldName == ViewBag.keywords)
+        {
+            <span style="font-weight:bold;color:#f00;">
+                @item.FieldName
+            </span>
+        }
+        else
+        {
+            <span>@item.FieldName</span>
+        }
+    </td>
+    <td>
+        @item.FieldType
+    </td>
+    <td>
+        @(item.TypeLength == -1 ? "max" : item.TypeLength.ToString())
+    </td>
+    <td>
+        @item.IsNull
+    </td>
+    <td>
+        @item.DefaultValue
+    </td>
+    <td>
+        @item.Description
+    </td>
+</tr>
+  }
+
+</table>
