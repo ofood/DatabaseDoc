@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseDoc", "DatabaseDoc\DatabaseDoc.csproj", "{2AEE0B77-8D96-4C9D-97A0-372B8A87640E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseDoc", "DatabaseDoc\DatabaseDoc.csproj", "{2AEE0B77-8D96-4C9D-97A0-372B8A87640E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseDocMarkDown", "DatabaseDocMarkDown\DatabaseDocMarkDown.csproj", "{F3FAD67E-DD85-41A3-8FBB-3BF5A4944977}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2AEE0B77-8D96-4C9D-97A0-372B8A87640E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AEE0B77-8D96-4C9D-97A0-372B8A87640E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AEE0B77-8D96-4C9D-97A0-372B8A87640E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3FAD67E-DD85-41A3-8FBB-3BF5A4944977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3FAD67E-DD85-41A3-8FBB-3BF5A4944977}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3FAD67E-DD85-41A3-8FBB-3BF5A4944977}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3FAD67E-DD85-41A3-8FBB-3BF5A4944977}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
