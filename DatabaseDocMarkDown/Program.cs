@@ -7,138 +7,152 @@ using Dapper;
 using System.Data.SQLite;
 namespace DatabaseDocMarkDown
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+      using(IDbConnection _conn=new SQLiteConnection(@"data source=E:\wwwroot\databasedoc\databasedoc\showdoc.db"))
+      {
+        var result = _conn.QueryFirstOrDefault("select * from page where page_id=707");
+        var items = result.page_content.ToString().Trim().Split('\n');
+        foreach (var item in items)
         {
-            SQLiteConnection conn = new SQLiteConnection("");
-            string pathBase = AppDomain.CurrentDomain.BaseDirectory;
-
-            string mdPath = pathBase;
-            File.Delete(mdPath + "test.md");
-            DataTable tables = ExecuteDataTable("select * from INFORMATION_SCHEMA.TABLES");
-            foreach (DataRow tableName in tables.Rows)
-            {
-                string tablename = (string)tableName["TABLE_NAME"];
-                //if (tablename.StartsWith("WX_"))
-                //{
-                List<string> Rows = new List<string>();
-                Rows.Add("### " + tablename + "(*快来修改我*)");
-                Rows.Add("");
-                Rows.Add("| 字段                       | 数据类型           |   小数点  | PK | NULL  | DEFAULT      | 描述                                                                               |");
-                Rows.Add("|----------------------------|--------------------|-------|----|-------|--------------|------------------------------------------------------------------------------------|");
-                DataTable tableColumns = ExecuteDataTable("select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME=@tablename",
-            new SqlParameter("tablename", tablename));
-                foreach (DataRow column in tableColumns.Rows)
-                {
-                    string column_name = (string)column["COLUMN_NAME"];
-                    string data_type = (string)column["DATA_TYPE"];
-                    string decimaldot = (string)column["NUMERIC_SCALE"].ToString();
-                    string character_maximum_length = column["CHARACTER_MAXIMUM_LENGTH"].ToString();
-                    string column_default = column["COLUMN_DEFAULT"].ToString();
-                    string is_nullable = column["IS_NULLABLE"].ToString();
-
-                    MDTableRow mdtablerow = new MDTableRow();
-                    mdtablerow.column_name = column_name;
-                    mdtablerow.data_type = data_type;
-                    mdtablerow.character_maximum_length = character_maximum_length;
-                    mdtablerow.column_default = column_default;
-                    mdtablerow.is_nullable = is_nullable;
-                    mdtablerow.numeric_scale = decimaldot;
-                    Rows.Add(WriteTableRow(mdtablerow));
-                }
-                //File.Delete(mdPath + "test.md");
-                File.AppendAllLines(mdPath + string.Format("{0}.md", tableName["TABLE_CATALOG"]), Rows);
-                Console.WriteLine(tablename + " 生成完成");
-                //}
-            }
-            Console.WriteLine();
-            Console.WriteLine("生成结束！");
-            Console.ReadKey();
+          foreach (var f in item.Split('|'))
+          {
+            Console.Write($"{f}  ");
+          }
+          Console.WriteLine("\n");
+          //Console.WriteLine("--------------------------------------");
         }
+        //Console.WriteLine($"内容：{}");
+      }
+      /*string pathBase = AppDomain.CurrentDomain.BaseDirectory;
 
-        public static string WriteTableRow(MDTableRow mdtablerow)
-        {
-            string datatype = mdtablerow.character_maximum_length == "" || mdtablerow.character_maximum_length == "2147483647"
-                ? "`" + mdtablerow.data_type.ToUpper() + "`" : "`" + mdtablerow.data_type.ToUpper() + "(" + mdtablerow.character_maximum_length + ")`";
+      string mdPath = pathBase;
+      File.Delete(mdPath + "test.md");
+      DataTable tables = ExecuteDataTable("select * from INFORMATION_SCHEMA.TABLES");
+      foreach (DataRow tableName in tables.Rows)
+      {
+          string tablename = (string)tableName["TABLE_NAME"];
+          //if (tablename.StartsWith("WX_"))
+          //{
+          List<string> Rows = new List<string>();
+          Rows.Add("### " + tablename + "(*快来修改我*)");
+          Rows.Add("");
+          Rows.Add("| 字段                       | 数据类型           |   小数点  | PK | NULL  | DEFAULT      | 描述                                                                               |");
+          Rows.Add("|----------------------------|--------------------|-------|----|-------|--------------|------------------------------------------------------------------------------------|");
+          DataTable tableColumns = ExecuteDataTable("select * from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME=@tablename",
+      new SqlParameter("tablename", tablename));
+          foreach (DataRow column in tableColumns.Rows)
+          {
+              string column_name = (string)column["COLUMN_NAME"];
+              string data_type = (string)column["DATA_TYPE"];
+              string decimaldot = (string)column["NUMERIC_SCALE"].ToString();
+              string character_maximum_length = column["CHARACTER_MAXIMUM_LENGTH"].ToString();
+              string column_default = column["COLUMN_DEFAULT"].ToString();
+              string is_nullable = column["IS_NULLABLE"].ToString();
 
-            string data_tp = "`" + System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(SqlDataTypeToNetDataType(mdtablerow.data_type)) + "`";
-
-            string str = string.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|"
-                , Pad("", "----------------".Length, false)
-                , Pad(mdtablerow.column_name, "----------------------------".Length)
-                , Pad(mdtablerow.character_maximum_length == "-1" ? "`" + mdtablerow.data_type.ToUpper() + "(MAX)`" : datatype, "--------------------".Length)
-                , Pad(mdtablerow.numeric_scale, "---------------------".Length)
-                , Pad(mdtablerow.column_name == "ID" ? "PK" : "", "------".Length)
-                , Pad(mdtablerow.is_nullable == "NO" ? "" : "NULL", "-------".Length)
-                , Pad(mdtablerow.column_default, "--------------".Length)
-                , Pad("", "------------------------------------------------------------------------------------".Length)
-                );
-            return str;
-        }
-
-        public static string Pad(string basestr, int padlength, bool isCN = false)
-        {
-            int baselength = (int)(basestr.Length * (isCN ? 2 : 1));
-            int length = padlength - baselength;
-            return basestr.PadLeft(2).PadRight(padlength - (isCN ? basestr.Length : 0));
-        }
-
-
-        public static DataTable ExecuteDataTable(string cmdText, params SqlParameter[] parameters)
-        {
-            using (SqlConnection conn = new SqlConnection(@"server=192.168.30.7;database=HeadHunterQ1;uid=headhunter;pwd=headhunterdev;"))
-            {
-                conn.Open();
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = cmdText;
-                    cmd.Parameters.AddRange(parameters);
-                    DataTable dt = new DataTable();
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    adapter.Fill(dt);
-                    return dt;
-                }
-            }
-        }
-
-        private static string SqlDataTypeToNetDataType(string datatype)
-        {
-            switch (datatype)
-            {
-                case "int":
-                    return "int";
-
-                case "nvarchar":
-                case "varchar":
-                case "nchar":
-                case "char":
-                    return "string";
-
-                case "bit":
-                    return "bool";
-
-                case "datetime":
-                case "datetime2":
-                    return "DateTime";
-
-                case "decimal":
-                    return "decimal";
-
-                default:
-                    return "object";
-
-            }
-        }
-
+              MDTableRow mdtablerow = new MDTableRow();
+              mdtablerow.column_name = column_name;
+              mdtablerow.data_type = data_type;
+              mdtablerow.character_maximum_length = character_maximum_length;
+              mdtablerow.column_default = column_default;
+              mdtablerow.is_nullable = is_nullable;
+              mdtablerow.numeric_scale = decimaldot;
+              Rows.Add(WriteTableRow(mdtablerow));
+          }
+          //File.Delete(mdPath + "test.md");
+          File.AppendAllLines(mdPath + string.Format("{0}.md", tableName["TABLE_CATALOG"]), Rows);
+          Console.WriteLine(tablename + " 生成完成");
+          //}
+      }
+      Console.WriteLine();
+      Console.WriteLine("生成结束！");
+      Console.ReadKey();*/
     }
-    class MDTableRow
+
+    public static string WriteTableRow(MDTableRow mdtablerow)
     {
-        public string column_name { get; set; }
-        public string data_type { get; set; }
-        public string character_maximum_length { get; set; }
-        public string column_default { get; set; }
-        public string numeric_scale { get; set; }
-        public string is_nullable { get; set; }
+      string datatype = mdtablerow.character_maximum_length == "" || mdtablerow.character_maximum_length == "2147483647"
+          ? "`" + mdtablerow.data_type.ToUpper() + "`" : "`" + mdtablerow.data_type.ToUpper() + "(" + mdtablerow.character_maximum_length + ")`";
+
+      string data_tp = "`" + System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(SqlDataTypeToNetDataType(mdtablerow.data_type)) + "`";
+
+      string str = string.Format("|{0}|{1}|{2}|{3}|{4}|{5}|{6}|"
+          , Pad("", "----------------".Length, false)
+          , Pad(mdtablerow.column_name, "----------------------------".Length)
+          , Pad(mdtablerow.character_maximum_length == "-1" ? "`" + mdtablerow.data_type.ToUpper() + "(MAX)`" : datatype, "--------------------".Length)
+          , Pad(mdtablerow.numeric_scale, "---------------------".Length)
+          , Pad(mdtablerow.column_name == "ID" ? "PK" : "", "------".Length)
+          , Pad(mdtablerow.is_nullable == "NO" ? "" : "NULL", "-------".Length)
+          , Pad(mdtablerow.column_default, "--------------".Length)
+          , Pad("", "------------------------------------------------------------------------------------".Length)
+          );
+      return str;
     }
+
+    public static string Pad(string basestr, int padlength, bool isCN = false)
+    {
+      int baselength = (int)(basestr.Length * (isCN ? 2 : 1));
+      int length = padlength - baselength;
+      return basestr.PadLeft(2).PadRight(padlength - (isCN ? basestr.Length : 0));
+    }
+
+
+    public static DataTable ExecuteDataTable(string cmdText, params SqlParameter[] parameters)
+    {
+      using (SqlConnection conn = new SqlConnection(@"server=192.168.30.7;database=HeadHunterQ1;uid=headhunter;pwd=headhunterdev;"))
+      {
+        conn.Open();
+        using (SqlCommand cmd = conn.CreateCommand())
+        {
+          cmd.CommandText = cmdText;
+          cmd.Parameters.AddRange(parameters);
+          DataTable dt = new DataTable();
+          SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+          adapter.Fill(dt);
+          return dt;
+        }
+      }
+    }
+
+    private static string SqlDataTypeToNetDataType(string datatype)
+    {
+      switch (datatype)
+      {
+        case "int":
+          return "int";
+
+        case "nvarchar":
+        case "varchar":
+        case "nchar":
+        case "char":
+          return "string";
+
+        case "bit":
+          return "bool";
+
+        case "datetime":
+        case "datetime2":
+          return "DateTime";
+
+        case "decimal":
+          return "decimal";
+
+        default:
+          return "object";
+
+      }
+    }
+
+  }
+  class MDTableRow
+  {
+    public string column_name { get; set; }
+    public string data_type { get; set; }
+    public string character_maximum_length { get; set; }
+    public string column_default { get; set; }
+    public string numeric_scale { get; set; }
+    public string is_nullable { get; set; }
+  }
 }

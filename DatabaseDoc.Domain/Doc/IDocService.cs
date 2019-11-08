@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DatabaseDoc.Domain.Doc
 {
-    interface IDocService
+    public interface IDocService
     {
     }
 }
