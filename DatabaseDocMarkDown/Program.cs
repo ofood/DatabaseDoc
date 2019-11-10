@@ -24,7 +24,7 @@ namespace DatabaseDocMarkDown
             string df = Regex.Replace(markContent, @"(?<=-)[\s]+", "")
                 .Replace("\t", "")
                 .Replace("|", "| ");
-            var matchs = Regex.Matches(df, @"(?<=|)[\u4e00-\u9fa5_a-zA-Z0-9]+",RegexOptions.IgnoreCase);
+            var matchs = Regex.Matches(df, @"(?<=|)[\u4e00-\u9fa5\w]+");
             foreach(var match in matchs)
             {
                 df=df.Replace(match.ToString(), " " + match.ToString() + " ");
@@ -39,7 +39,7 @@ namespace DatabaseDocMarkDown
                 List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
                 foreach (var item in htmlNodes)
                 {
-                    var keyValuePair = KeyValuePair.Create(item.FirstChild.InnerText, item.LastChild.InnerText);
+                    var keyValuePair = KeyValuePair.Create(item.FirstChild.InnerText.Replace(" ",""), item.LastChild.InnerText.Replace(" ", ""));
                     keyValuePairs.Add(keyValuePair);
                 }
                 return keyValuePairs;
