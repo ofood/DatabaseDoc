@@ -1,0 +1,66 @@
+﻿
+@{
+    Layout = null;
+}
+@using DatabaseDoc.Repository.Doc.Entities
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>数据库文档说明</title>
+    <link href="~/css/doc.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+</head>
+<body>
+    <div class="box">
+        <form action="/" method="get">
+            
+            <div class="searchBox">
+                <span>
+                    <input class="searchInput" placeholder="请输入你要查询的表名" value="@ViewBag.keywords" id="txtSer" name="keywords" />
+                </span><span><input type="submit" value="查询" id="searchBtn" class="searchBtn"></span>
+            </div>
+            <div>
+                <input class="nullclass" type="checkbox" onchange="checkboxChange(this)" name="existnull" value="@ViewBag.IsNull" />描述为空
+                <span style="color:#f00;">表个数：@ViewBag.TotalCount</span>
+            </div>
+        </form>
+
+        @foreach (var item in Model as List<TableInfo>)
+        {
+            <p class="tableHeader">
+                @item.TableName
+                @if (!string.IsNullOrEmpty(item.TableDescritpion))
+                {
+                    <span class="tabdes">(@item.TableDescritpion)</span>
+                }
+            </p>
+            await Html.RenderPartialAsync("_List", item.FieldInfos);
+        }
+        <div class="paper">
+            <my-pager pager-option="@ViewBag.Option"></my-pager>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            if ($(".nullclass").val() == 1) {
+                $(".nullclass").prop("checked", true);
+            }
+        }
+        function checkboxChange(obj) {
+            if (obj.checked) {
+                obj.value = 1;
+            }
+            else {
+                obj.value = 0;
+            }
+
+            $("#searchBtn").click();
+        }
+    </script>
+</body>
+</html>

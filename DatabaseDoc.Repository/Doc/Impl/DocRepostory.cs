@@ -29,7 +29,7 @@ namespace DatabaseDoc.Repository.Doc
         /// </summary>
         /// <param name="tableId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<FieldInfo>> GetFieldInfosAsync(int tableId)
+        public async Task<IEnumerable<TableFieldInfo>> GetFieldInfosAsync(int tableId)
         {
             string sql = @"SELECT 
     FieldName = a.name,
@@ -37,8 +37,8 @@ namespace DatabaseDoc.Repository.Doc
     FieldType = b.name,
     OccupiedByte = a.length,
     TypeLength = COLUMNPROPERTY(a.id, a.name, 'PRECISION'),
-    DecimalNumber = isnull(COLUMNPROPERTY(a.id, a.name, 'Scale'), 0),
-    'IsNull' = case when a.isnullable = 1 then '√'else '' end,
+    NumericScale = isnull(COLUMNPROPERTY(a.id, a.name, 'Scale'), 0),
+    'IsNullable' = case when a.isnullable = 1 then '√'else '' end,
     DefaultValue = isnull(e.text, ''),
     ColumnDescription = isnull(g.[value], '')
 FROM
@@ -61,7 +61,7 @@ where
     a.id = @tableid
 order by
     a.id,a.colorder";
-            return await _dapperDbContext.QueryAsync<FieldInfo>(sql,new { tableid=tableId});
+            return await _dapperDbContext.QueryAsync<TableFieldInfo>(sql,new { tableid=tableId});
         }
         public async Task<IEnumerable<TableInfo>> GetAllAsync()
         {

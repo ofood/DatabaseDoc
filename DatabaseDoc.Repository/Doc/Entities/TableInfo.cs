@@ -10,6 +10,6 @@ namespace DatabaseDoc.Repository.Doc.Entities
         public string TableName { get; set; }
         public string TableDescritpion { get; set; }
         public DateTime CreateTime { get; set; }
-        public List<FieldInfo> FieldInfos { get; set; }
+        public IEnumerable<TableFieldInfo> FieldInfos { get; set; }
     }
 }

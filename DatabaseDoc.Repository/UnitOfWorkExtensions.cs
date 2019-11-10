@@ -12,10 +12,10 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             //services.AddSingleton(typeof(IUnitOfWork<>),typeof(UnitOfWork<>));
             //services.AddScoped<IDbContext, DapperDbContext>();
-            services.AddScoped<DapperDbContext>();
-            services.AddScoped<DapperUnitOfWorkFactory>();
-            services.AddScoped<EFUnitOfWorkFactory>();
-            services.AddScoped(factory =>
+            services.AddSingleton<DapperDbContext>();
+            services.AddSingleton<DapperUnitOfWorkFactory>();
+            services.AddSingleton<EFUnitOfWorkFactory>();
+            services.AddSingleton(factory =>
             {
                 Func<string, IUnitOfWorkFactory> accesor = key =>
                   {

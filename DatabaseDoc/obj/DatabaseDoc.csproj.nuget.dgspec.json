@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc\\DatabaseDoc.csproj": {}
+    "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc\\DatabaseDoc.csproj": {}
   },
   "projects": {
-    "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj": {
+    "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj",
+        "projectUniqueName": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj",
         "projectName": "DatabaseDoc.Core",
-        "projectPath": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Core\\obj\\",
+        "projectPath": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj",
+        "packagesPath": "C:\\Users\\PeterH\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PeterH\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,8 +25,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://www.nuget.org/api/v2/": {}
+          "http://localhost:9000/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.0": {
@@ -44,7 +44,7 @@
           "dependencies": {
             "Microsoft.Extensions.Options": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[2.2.0, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
@@ -67,20 +67,20 @@
         }
       }
     },
-    "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Repository\\DatabaseDoc.Repository.csproj": {
+    "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Repository\\DatabaseDoc.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Repository\\DatabaseDoc.Repository.csproj",
+        "projectUniqueName": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Repository\\DatabaseDoc.Repository.csproj",
         "projectName": "DatabaseDoc.Repository",
-        "projectPath": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Repository\\DatabaseDoc.Repository.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Repository\\obj\\",
+        "projectPath": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Repository\\DatabaseDoc.Repository.csproj",
+        "packagesPath": "C:\\Users\\PeterH\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Repository\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PeterH\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -88,14 +88,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://www.nuget.org/api/v2/": {}
+          "http://localhost:9000/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj": {
-                "projectPath": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj"
+              "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj": {
+                "projectPath": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj"
               }
             }
           }
@@ -115,7 +115,7 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[2.2.6, )"
+              "version": "[2.2.1, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
@@ -142,20 +142,20 @@
         }
       }
     },
-    "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc\\DatabaseDoc.csproj": {
+    "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc\\DatabaseDoc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc\\DatabaseDoc.csproj",
+        "projectUniqueName": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc\\DatabaseDoc.csproj",
         "projectName": "DatabaseDoc",
-        "projectPath": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc\\DatabaseDoc.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc\\obj\\",
+        "projectPath": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc\\DatabaseDoc.csproj",
+        "packagesPath": "C:\\Users\\PeterH\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PeterH\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -163,17 +163,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://www.nuget.org/api/v2/": {}
+          "http://localhost:9000/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.1": {
             "projectReferences": {
-              "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj": {
-                "projectPath": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj"
+              "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj": {
+                "projectPath": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Core\\DatabaseDoc.Core.csproj"
               },
-              "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Repository\\DatabaseDoc.Repository.csproj": {
-                "projectPath": "E:\\wwwroot\\databasedoc\\databasedoc\\DatabaseDoc.Repository\\DatabaseDoc.Repository.csproj"
+              "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Repository\\DatabaseDoc.Repository.csproj": {
+                "projectPath": "C:\\Users\\PeterH\\Desktop\\DatabaseDoc\\DatabaseDoc.Repository\\DatabaseDoc.Repository.csproj"
               }
             }
           }

@@ -1,0 +1,80 @@
+﻿body {
+    font-size:14px;
+
+}
+
+.box {
+    width:900px;
+    margin:0 auto;
+
+}
+
+.searchBox {
+    line-height:50px;
+
+}
+
+    .searchBox .searchInput {
+        width: 810px;
+        border: 1px solid #317EF3;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 10px;
+        outline:none;
+    }
+
+    .searchBox .searchBtn {
+        width: 70px;
+        height: 44px;
+        line-height: 42px;
+        text-align: center;
+        background: #317EF3;
+        color: #fff;
+        border:none;
+        outline:none;
+    }
+
+.tableHeader {
+    font-weight:bold;
+    font-size:16px;
+}
+table.tablecss{
+    border-collapse:collapse;
+    width:100%;
+    border-left:1px solid #ccc;
+    border-bottom:1px solid #ccc;
+}
+.tablecss th {
+    line-height: 30px;
+    text-align: center;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    background: #e5e5e5;
+}
+.tablecss td{
+    line-height:28px;
+    border-right:1px solid #ccc;
+    border-top:1px solid #ccc;
+    padding-left:15px;
+}
+.tablecss tr:nth-of-type(odd) {
+    background: #f2f3f4
+}
+.tableHeader .tabdes {
+}
+
+.paper {
+    width:600px;
+    margin:30px auto;
+}
+    .paper a {
+        padding: 6px 10px;
+        background: #5696f7;
+        color: #fff;
+        margin: 0 5px;
+    }
+    .paper .current {
+        padding: 6px 12px;
+        font-weight:bold;
+        color:#f00;
+    }

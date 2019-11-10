@@ -18,7 +18,8 @@ namespace DatabaseDoc.Core
         public DapperDbContext(IDbManager dbManager)
         {
             _dbManager = dbManager;
-            _dbConnection = dbManager.CreateConnection("test");
+
+            _dbConnection = dbManager.CreateConnection();
 
         }
         public bool IsTransactionStarted { get; private set; }

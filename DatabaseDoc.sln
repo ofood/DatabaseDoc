@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseDoc", "DatabaseDoc\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseDocMarkDown", "DatabaseDocMarkDown\DatabaseDocMarkDown.csproj", "{F3FAD67E-DD85-41A3-8FBB-3BF5A4944977}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseDoc.Core", "DatabaseDoc.Core\DatabaseDoc.Core.csproj", "{42FDE1DE-56A7-4B0F-AB5E-4FB214FECF48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseDoc.Core", "DatabaseDoc.Core\DatabaseDoc.Core.csproj", "{42FDE1DE-56A7-4B0F-AB5E-4FB214FECF48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseDoc.Repository", "DatabaseDoc.Repository\DatabaseDoc.Repository.csproj", "{3CAA7FB2-36D0-412B-9108-22BAEDEE11A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseDoc.Repository", "DatabaseDoc.Repository\DatabaseDoc.Repository.csproj", "{3CAA7FB2-36D0-412B-9108-22BAEDEE11A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseDoc.Domain", "DatabaseDoc.Domain\DatabaseDoc.Domain.csproj", "{13ED05C2-8F74-47DD-B20D-CEDDC71978EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseDoc.Domain", "DatabaseDoc.Domain\DatabaseDoc.Domain.csproj", "{13ED05C2-8F74-47DD-B20D-CEDDC71978EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseDoc.WebApp", "DatabaseDoc.WebApp\DatabaseDoc.WebApp.csproj", "{E60168DC-74FC-40B7-99FE-9F01312CB9F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{13ED05C2-8F74-47DD-B20D-CEDDC71978EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13ED05C2-8F74-47DD-B20D-CEDDC71978EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13ED05C2-8F74-47DD-B20D-CEDDC71978EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E60168DC-74FC-40B7-99FE-9F01312CB9F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E60168DC-74FC-40B7-99FE-9F01312CB9F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E60168DC-74FC-40B7-99FE-9F01312CB9F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E60168DC-74FC-40B7-99FE-9F01312CB9F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

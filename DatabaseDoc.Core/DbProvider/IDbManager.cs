@@ -4,6 +4,6 @@ namespace DatabaseDoc.Core.DbProvider
 {
     public interface IDbManager
     {
-        DbConnection CreateConnection(string name);
+        DbConnection CreateConnection();
     }
 }

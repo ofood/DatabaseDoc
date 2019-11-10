@@ -6,6 +6,8 @@ namespace DatabaseDoc.Core.DbProvider
 {
     public class DbManager : IDbManager
     {
+        public string NameConnectinString { get; set; } = "ItemBank";
+
         private readonly DbOptions _options;
         public DbManager(IOptionsMonitor<DbOptions> optionsAccessor)
         {
@@ -17,9 +19,9 @@ namespace DatabaseDoc.Core.DbProvider
             _options = optionsAccessor.CurrentValue;
         }
 
-        public DbConnection CreateConnection(string name)
+        public DbConnection CreateConnection()
         {
-            var dbSeting = GetSetting(name);
+            var dbSeting = GetSetting();
 
             DbProviderFactory dbProviderFactory = DbProviderFactories.GetFactory(dbSeting);
             DbConnection connection = dbProviderFactory.CreateConnection();
@@ -28,9 +30,9 @@ namespace DatabaseDoc.Core.DbProvider
             return connection;
         }
 
-        private DbSetting GetSetting(string name)
+        private DbSetting GetSetting()
         {
-            _options.TryGetValue(name, out DbSetting dbSetting);
+            _options.TryGetValue(NameConnectinString, out DbSetting dbSetting);
 
             return dbSetting;
         }
